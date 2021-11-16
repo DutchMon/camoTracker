@@ -33,7 +33,6 @@ export default function Home() {
 				<section className="hero">
 					<div className="hero-body">
 						<Logo></Logo>
-						<h1 className="title is-size-2">Completion Dashboard</h1>
 					</div>
 				</section>
 				<hr className="is-hidden-mobile"></hr>

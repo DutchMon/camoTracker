@@ -19,7 +19,6 @@ function Logo() {
                         alt="webapp logo icon image"
                     />
                 </div>
-                <h1 className="title is-5 is-dark">Vanguard Camo Tracker</h1>
             </div>
         </div>
     )
