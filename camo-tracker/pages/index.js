@@ -30,9 +30,10 @@ export default function Home() {
 	return (
 		<Layout>
 			<div className="column">
-				<section className="hero">
+				<section className="hero is-hidden-mobile">
 					<div className="hero-body">
 						<Logo></Logo>
+						<h1 className="title is-size-2">Completion Dashboard</h1>
 					</div>
 				</section>
 				<hr className="is-hidden-mobile"></hr>
