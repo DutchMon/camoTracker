@@ -116,7 +116,7 @@ const Header = () => {
                                     </li>
                                     <li>
                                         <a href="">
-                                            <img src="/farmerIcon.png" width="32" height="32" />
+                                            <img src="/shield_icon.png" width="32" height="32" />
                                         </a>
                                     </li>
                                 </>
@@ -128,7 +128,7 @@ const Header = () => {
                         <span aria-hidden="true"></span>
                     </div>
                 </div>
-                <div className="navbar-menu is-light has-background-grey-lighter is-hidden-desktop" id="navMenu">
+                <div className="navbar-menu is-black is-hidden-desktop" id="navMenu">
                     <ul className="menu-list burgerMenu">
                         <li>
                             <ActiveLink activeClassName="is-active" href="/">
