@@ -23,7 +23,7 @@ export default async function auth(req, res) {
     pages: {
       signIn: '/login'
     },
-    //debug: true,
+    debug: true,
     //...
   })
 }

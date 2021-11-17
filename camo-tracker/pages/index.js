@@ -125,14 +125,14 @@ export default function Home() {
 	)
 }
 
-
+/*
 export async function getServerSideProps(ctx) {
 
 	// request crop data from api
-	let cropRes = await fetch(`${server}/api/crops`)
+	//let cropRes = await fetch(`${server}/api/crops`)
 
 	// extract the data
-	let cropData = await cropRes.json()
+	//let cropData = await cropRes.json()
 
 	//console.log(data)
 
@@ -144,7 +144,7 @@ export async function getServerSideProps(ctx) {
 }
 
 
-/*
+
 
 											<tbody>
 												{chiMerged.map((crop, i) => (
