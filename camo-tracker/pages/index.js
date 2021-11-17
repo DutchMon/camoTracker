@@ -8,7 +8,7 @@ import Image from 'next/image'
 
 function Logo() {
     return (
-        <div className="is-centered is-centered-logo">
+        <div className="is-centered is-centered-logo is-hidden-mobile">
             <div className="logo-wrapper">
                 <Image
                     src={vgIcon}
@@ -30,7 +30,7 @@ export default function Home() {
 	return (
 		<Layout>
 			<div className="column">
-				<section className="hero is-hidden-mobile">
+				<section className="hero">
 					<div className="hero-body">
 						<Logo></Logo>
 						<h1 className="title is-size-2">Completion Dashboard</h1>
