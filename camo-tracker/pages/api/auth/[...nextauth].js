@@ -23,6 +23,7 @@ export default async function auth(req, res) {
     pages: {
       signIn: '/login'
     },
+    secret: process.env.SECRET
     //debug: true,
     //...
   })
