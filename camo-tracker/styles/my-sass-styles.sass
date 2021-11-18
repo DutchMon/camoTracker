@@ -12,7 +12,7 @@ $menu-item-hover-background-color: #A50519
 @import "../node_modules/bulma/bulma.sass"
 @import "../node_modules/bulma-pageloader"
 @import "../node_modules/bulma-responsive-tables/bulma-responsive-tables"
-@import url('https://fonts.googleapis.com/css2?family=Teko:wght@500&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@700&family=Teko:wght@500&display=swap')
 
 hr
   background-color: #736231
@@ -221,7 +221,12 @@ hr
   max-height: 80% !important
 
 
-//table
+//Weapon Display and table
+
+#assaultRifleHero
+  height: 400px
+  align-items: flex-start
+
 abbr[title]
   text-decoration: solid
 
@@ -256,3 +261,14 @@ abbr[title]
   border-color: #161A19
   font-weight: bold
   max-width: 40%
+
+.gunTitleWrapper
+  font-family: 'Stardos Stencil', cursive
+
+.gunWrapper
+  width: 700px
+  span
+    overflow: visible !important
+    img
+      border-radius: 3rem
+      box-shadow: -10px 10px 20px rgba(48,7,1,1)

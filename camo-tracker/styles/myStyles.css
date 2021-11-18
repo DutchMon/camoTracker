@@ -130,6 +130,11 @@ ul.login-list > li > div {
   flex-direction: column;
   min-height: 100vh;
 }
+#noBackgroundImage {
+  background-image: none;
+  background: rgb(79,10,1);
+  background: linear-gradient(10deg, rgba(79,10,1,1) 0%, rgba(1,1,0,1) 85%, rgba(1,1,0,1) 100%);
+}
 .dashboard-main .navbar.is-fixed-top {
   position: -webkit-sticky;
   position: sticky;

@@ -1,40 +1,59 @@
-import Layout from '../components/layout'
+import LayoutWeaon from '../components/layoutWeapons'
 import { server } from '../config'
 import React, { useState, useEffect, useRef } from 'react'
 import { useSession } from 'next-auth/react'
 import vgIcon from '../public/vgIcon.png'
 import Image from 'next/image'
 import { useOnClickOutside } from '../components/hooks'
+import { STG, AS44, Automaton, BAR, ITRA, NZ41, Volk } from '../public/guns'
 
 
-function Logo() {
+function WeaponImg({ gun, id }) {
+
+	const guns = {
+		stg: STG,
+		as44: AS44,
+		automaton: Automaton,
+		bar: BAR,
+		itra: ITRA,
+		nz41: NZ41,
+		volk: Volk
+	}
+
 	return (
-		<div className="is-centered is-centered-logo is-hidden-mobile">
-			<div className="logo-wrapper">
+			<div className="gunWrapper hidden" id={id}>
 				<Image
-					src={vgIcon}
-					alt="webapp logo icon image"
-					width="500px"
+					src={guns[gun]}
+					alt="weapon"
+					layout="fixed"
+					height="300"
+					width="700"
 				/>
 			</div>
-		</div>
 	)
 }
+
 const toggleSubMenu = (e) => {
 
-	let parentElement = e.target.parentElement
 	let parentId = e.target.parentNode.id
-
 	let subRowId = parentId + "Sub"
+	let gunImageId = parentId + "Img"
+	let gunTitleId = parentId + "Title"
 
 	let subRow = document.getElementById(subRowId)
-
 	let result = subRow.classList.toggle('hidden')
 
+	let gunImage = document.getElementById(gunImageId)
+	let gunTitle = document.getElementById(gunTitleId)
+
 	if (result) {
+		gunImage.classList.toggle('hidden')
+		gunTitle.classList.toggle('hidden')
 
 	} else {
 		subRow.classList.remove('hidden')
+		gunImage.classList.toggle('hidden')
+		gunTitle.classList.toggle('hidden')
 	}
 }
 export default function Home() {
@@ -42,27 +61,38 @@ export default function Home() {
 	const { data: session, status } = useSession()
 	const node = useRef();
 
-	let chiMerged = 0
-
-
-
-
 
 	return (
-		<Layout>
+		<LayoutWeaon>
 			<div className="column">
-				<section className="hero is-small">
-					<div className="hero-body">
-						<div className="level">
-							<div className="level-left">
-								<h1 className="title is-size-2 is-uppercase">Assault Rifles</h1>
+				<div className="container columns" id="assaultRifleHero">
+					<div className="column is-full">
+						<h1 className="title is-size-2 is-uppercase">Assault Rifles</h1>
+						<hr className="is-hidden-mobile"></hr>
+						<div className="columns is-vcentered">
+							<div className="column is-one-third">
+								<div className="gunTitleWrapper">
+									<h2 className="title is-size-1 is-uppercase has-text-centered hidden" id="gun1Title">STG-44</h2>
+									<h2 className="title is-size-3 is-uppercase hidden" id="gun2Title">AS-44</h2>
+									<h2 className="title is-size-3 is-uppercase hidden" id="gun3Title">Automaton</h2>
+									<h2 className="title is-size-3 is-uppercase hidden" id="gun4Title">BAR</h2>
+									<h2 className="title is-size-3 is-uppercase hidden" id="gun5Title">Itra Burst</h2>
+									<h2 className="title is-size-3 is-uppercase hidden" id="gun6Title">NZ-41</h2>
+									<h2 className="title is-size-3 is-uppercase hidden" id="gun7Title">Volkssturmgewehr</h2>
+								</div>
 							</div>
-							<div className="level-right">
-								<a className="button is-dark" href="/addCrop">Button</a>
+							<div className="column">
+								<WeaponImg id={'gun1Img'} gun={'stg'}></WeaponImg>
+								<WeaponImg id={'gun2Img'} gun={'as44'}></WeaponImg>
+								<WeaponImg id={'gun3Img'} gun={'automaton'}></WeaponImg>
+								<WeaponImg id={'gun4Img'} gun={'bar'}></WeaponImg>
+								<WeaponImg id={'gun5Img'} gun={'itra'}></WeaponImg>
+								<WeaponImg id={'gun6Img'} gun={'nz41'}></WeaponImg>
+								<WeaponImg id={'gun7Img'} gun={'volk'}></WeaponImg>
 							</div>
 						</div>
 					</div>
-				</section>
+				</div>
 				<hr className="is-hidden-mobile"></hr>
 				<section>
 					<div className="b-table has-pagination box" id="boxTable">
@@ -281,7 +311,7 @@ export default function Home() {
 					</div>
 				</section>
 			</div>
-		</Layout>
+		</LayoutWeaon>
 	)
 }
 

@@ -18,8 +18,8 @@ const Layout = ({ children }) => (
 			<div className="dashboard-main is-scrollable">
 				<Header />
 				<div className="block flexGrow scroll contentHeight">
-					<main className="opacityFilter">
-						<div className="container opacityLayer">{children}</div>
+					<main>
+						<div className="container">{children}</div>
 					</main>
 				</div>
 			</div>
