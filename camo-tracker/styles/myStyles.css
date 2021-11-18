@@ -8,24 +8,23 @@
 
 .login-list {
     display: flex;
+    flex-direction: row;
+    align-items: center;
     list-style: none;
     margin-left: 0;
     padding-left: 0;
 }
 
 ul.login-list > li {
-    margin-right: 1rem;
     display: flex;
     align-items: center;
+    margin-right: 10px;
 }
 ul.login-list > li.welcomeSignOut {
   display: flex;
-  align-items: flex-end;
   flex-direction: column;
-}
-
-ul.login-list > li:first-child {
-    margin-left: auto;
+  align-items: flex-end;
+  margin-right: 10px;
 }
 
 ul.login-list > li > a {
@@ -42,9 +41,11 @@ ul.login-list > li > h3 {
     align-items: center;
 }
 
+/*
 ul.login-list > li > a img {
     margin-right: 1em;
 }
+*/
 
 ul.login-list > li > div {
   height: 100% !important;
@@ -168,7 +169,7 @@ ul.login-list > li > div {
   width: 100%;
 }
 .mobile-logo-wrapper {
-  width: 50px;
+  width: 100px;
 }
 .is-centered-mobile {
   display: flex;
@@ -183,19 +184,17 @@ ul.login-list > li > div {
 #mobileCenter {
   align-items: center;
 }
-.burgerMenu {
-  text-align: right;
-}
 
 .burger {
   margin-left: 0;
 }
 #navMenu {
   color: rgba(0, 0, 0, 0.7) !important;
+  background-color: #000000;
 }
 #navMenu.is-active {
   position: absolute;
-  top: 52px;
+  top: 5rem;
   float: left;
   display: flex;
   right: 0;

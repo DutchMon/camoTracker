@@ -7,7 +7,7 @@ $link-invert: #D2D4CD
 $link-dark: #565656
 $text: #C2C5BB
 $text-strong: #C2C5BB
-
+$menu-item-hover-background-color: #A50519
 
 @import "../node_modules/bulma/bulma.sass"
 @import "../node_modules/bulma-pageloader"
@@ -23,6 +23,15 @@ hr
     min-width: 1000px
   @include mobile
     width: 100%
+    padding: 0 !important
+
+.hero-body
+  @include mobile
+  padding: 1rem 1.5rem
+
+.mobileTextCenter
+  @include mobile
+    text-align: center !important
 
 .contentHeight
   height: 70vh
@@ -36,9 +45,15 @@ hr
   @include tablet
    padding: 0px
 
+.burgerMenu
+  color: $text
+
 .menu-list
+  display: flex
+  flex-direction: column
+  align-items: stretch
   svg
-   padding: 0 0.75em
+   margin: 0 20% 0 auto
    // Modifiers
    &.is-active
     background-color: $menu-item-active-background-color
@@ -54,8 +69,6 @@ hr
     background-color: $menu-item-active-background-color
     color: $menu-item-active-color
    cursor: pointer
-  li
-   padding: .8em 0
 
 .pageloader
   opacity: 0.8
@@ -71,6 +84,32 @@ hr
 
 .navbar-end
   align-items: center
+
+.navItemFirst
+  padding-bottom: 5px
+  border-bottom:  5px solid #736231
+
+#navWeapon
+  height: 50px
+  span
+    display: flex !important
+    margin: 0 !important
+    height: inherit
+    justify-content: space-between
+
+#weaponIconParent
+  justify-content: space-between !important
+  span
+    width: 50% !important
+    height: inherit !important
+  h3
+    padding: 0 12px
+
+.weaponIcon
+  max-width: 80% !important
+  min-width: 80% !important
+  min-height: 80% !important
+  max-height: 80% !important
 
 .slider
   display: inline-flex !important
@@ -150,14 +189,11 @@ hr
   flex-direction: column
   align-items: center
 
-//table
-abbr[title]
-  text-decoration: solid
-
 .opacityLayer
   padding: 0rem 1rem 0 1rem
   background-color: #161A19
   opacity: 0.9
+  min-height: 100vh
 
 .opacityFilter
   background-color: #161A19
@@ -180,7 +216,14 @@ abbr[title]
   font-family: 'Teko', sans-serif
 
 .svg-inline--fa.fa-w-18
-  width: auto !important
+  min-width: fit-content !important
+  min-height: 40% !important
+  max-height: 80% !important
+
+
+//table
+abbr[title]
+  text-decoration: solid
 
 #boxTable
   background-color: transparent
@@ -192,3 +235,24 @@ abbr[title]
 
 .table.is-striped tbody tr:not(.is-selected):nth-child(even)
   background-color: #736231
+.table td, .table th
+  border: 1px solid #736231
+  border-width: 0 0 1px
+
+.table.is-hoverable.is-striped tbody tr:not(.is-selected):hover
+  background-color: #A50519
+.table.is-hoverable.is-striped tbody tr:not(.is-selected):hover
+  background-color: #A50519
+.table.is-hoverable.is-striped tbody tr:not(.is-selected):hover:nth-child(even)
+ background-color: #736231
+
+.hidden
+  display: none
+
+.input
+  background-color: #161A19
+  color: #BF0018
+  box-shadow: inset 0 0.0625em 0.125em #161A19
+  border-color: #161A19
+  font-weight: bold
+  max-width: 40%
