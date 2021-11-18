@@ -7,9 +7,9 @@ import Router from 'next/router'
 
 
 export default function Login({ providers }) {
-  const { data: sessiom } = useSession()
+  const { data: session } = useSession()
 
-  if (sessiom) return (
+  if (session) return (
     Router.push('/'),
     null
   )

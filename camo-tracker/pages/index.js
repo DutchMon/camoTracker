@@ -25,7 +25,8 @@ export default function Home() {
 
 	const { data: session, status } = useSession()
 
-	let chiMerged = 0
+	console.log("------------Status-------", status)
+
 
 	return (
 		<Layout>
