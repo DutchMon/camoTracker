@@ -1,4 +1,8 @@
-export default function PackTactics() {
+import { useFormContext } from 'react-hook-form'
+
+ export default function PackTactics({id}) {
+
+	const { register } = useFormContext()
 
 	let names = [
 		'The Depths',
@@ -26,7 +30,7 @@ export default function PackTactics() {
 							</div>
 							<div className="level-right">
 								<label className="checkbox">
-									<input type="checkbox"></input>
+									<input {...register(`${name}.${id}`)} type="checkbox" name={name} value='completed'></input>
 								</label>
 							</div>
 						</div>

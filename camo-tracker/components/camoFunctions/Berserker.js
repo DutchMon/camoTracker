@@ -1,4 +1,11 @@
-export default function Predatory() {
+import { useFormContext } from 'react-hook-form'
+
+export default function Predatory({id}) {
+
+	const { register } = useFormContext()
+
+	let idArray = []
+	let count = 0
 
 	let names = [
 		'Gamma Frog',
@@ -14,10 +21,12 @@ export default function Predatory() {
 	]
 
 
-
 	return (
 		<>
 			{names.map(function (name, i) {
+
+				//console.log('---idArray---',idName)
+
 				return (
 					<div key={i} className="column">
 						<div className="level">
@@ -26,7 +35,7 @@ export default function Predatory() {
 							</div>
 							<div className="level-right">
 								<label className="checkbox">
-									<input type="checkbox"></input>
+									<input key={name} {...register(`${name}.${id}`)} type="checkbox" name={name} value='completed'></input>
 								</label>
 							</div>
 						</div>

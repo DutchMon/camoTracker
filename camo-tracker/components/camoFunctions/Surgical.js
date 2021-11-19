@@ -1,4 +1,8 @@
-export default function Surgical() {
+import { useFormContext } from 'react-hook-form'
+
+export default function Surgical({id}) {
+
+	const { register } = useFormContext()
 
 	let names = [
 		'Wildwood',
@@ -14,7 +18,6 @@ export default function Surgical() {
 	]
 
 
-
 	return (
 		<>
 			{names.map(function (name, i) {
@@ -26,7 +29,7 @@ export default function Surgical() {
 							</div>
 							<div className="level-right">
 								<label className="checkbox">
-									<input type="checkbox"></input>
+									<input {...register(`${name}.${id}`)} type="checkbox" name={name} value='completed'></input>
 								</label>
 							</div>
 						</div>

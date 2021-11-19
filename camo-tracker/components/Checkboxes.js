@@ -1,4 +1,3 @@
-
 import PackTactics from '../components/camoFunctions/PackTactics'
 import Surgical from '../components/camoFunctions/Surgical'
 import Predatory from '../components/camoFunctions/Predatory'
@@ -11,7 +10,9 @@ import Mindgames from '../components/camoFunctions/Mindgames'
 import Death from '../components/camoFunctions/Death'
 
 
-export default function Checkboxes() {
+
+export default function Checkboxes({id}) {
+
 
     return (
 
@@ -20,61 +21,61 @@ export default function Checkboxes() {
                 <div className="column">
                     <p className="title is-size-6 has-text-centered">Pack Tactics</p>
                     <div className="columns is-flex-direction-column">
-                        <PackTactics></PackTactics>
+                        <PackTactics id={id} ></PackTactics>
                     </div>
                 </div>
                 <div className="column">
                     <p className="title is-size-6 has-text-centered">Surgical</p>
                     <div className="columns is-flex-direction-column">
-                        <Surgical></Surgical>
+                        <Surgical id={id}></Surgical>
                     </div>
                 </div>
                 <div className="column">
                     <p className="title is-size-6 has-text-centered">Predatory Ambition</p>
                     <div className="columns is-flex-direction-column">
-                        <Predatory></Predatory>
+                        <Predatory id={id}></Predatory>
                     </div>
                 </div>
                 <div className="column">
                     <p className="title is-size-6 has-text-centered">Reptilian</p>
                     <div className="columns is-flex-direction-column">
-                        <Reptilian></Reptilian>
+                        <Reptilian id={id}></Reptilian>
                     </div>
                 </div>
                 <div className="column">
                     <p className="title is-size-6 has-text-centered">Deadeye</p>
                     <div className="columns is-flex-direction-column">
-                        <Deadeye></Deadeye>
+                        <Deadeye id={id}></Deadeye>
                     </div>
                 </div>
                 <div className="column">
                     <p className="title is-size-6 has-text-centered">Berserker</p>
                     <div className="columns is-flex-direction-column">
-                        <Berserker></Berserker>
+                        <Berserker id={id}></Berserker>
                     </div>
                 </div>
                 <div className="column">
                     <p className="title is-size-6 has-text-centered">Wildcat</p>
                     <div className="columns is-flex-direction-column">
-                        <Wildcat></Wildcat>
+                        <Wildcat id={id}></Wildcat>
                     </div>
                 </div>
                 <div className="column">
                     <p className="title is-size-6 has-text-centered">Survivalist</p>
                     <div className="columns is-flex-direction-column">
-                        <Survivalist></Survivalist>
+                        <Survivalist id={id}></Survivalist>
                     </div>
                 </div>
                 <div className="column">
                     <p className="title is-size-6 has-text-centered">Mindgames</p>
                     <div className="columns is-flex-direction-column">
-                        <Mindgames></Mindgames>
+                        <Mindgames id={id}></Mindgames>
                     </div>
                 </div>
                 <div className="column">
                     <p className="title is-size-6 has-text-centered">Death Artist</p>
                     <div className="columns is-flex-direction-column">
-                        <Death></Death>
+                        <Death id={id}></Death>
                     </div>
                 </div>
             </div>
