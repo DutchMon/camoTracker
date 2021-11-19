@@ -49,6 +49,8 @@ hr
   color: $text
 
 .menu-list
+  font-family: 'Stardos Stencil', cursive
+  text-transform: uppercase
   display: flex
   flex-direction: column
   align-items: stretch
@@ -88,6 +90,8 @@ hr
 .navItemFirst
   padding-bottom: 5px
   border-bottom:  5px solid #736231
+  span
+    justify-content: center !important
 
 #navWeapon
   height: 50px
@@ -96,6 +100,7 @@ hr
     margin: 0 !important
     height: inherit
     justify-content: space-between
+    align-items: center
 
 #weaponIconParent
   justify-content: space-between !important
@@ -239,7 +244,8 @@ abbr[title]
     background-color: transparent
 
 .table.is-striped tbody tr:not(.is-selected):nth-child(even)
-  background-color: #736231
+  background-color: #161a19
+  opacity: .8
 .table td, .table th
   border: 1px solid #736231
   border-width: 0 0 1px
@@ -249,7 +255,8 @@ abbr[title]
 .table.is-hoverable.is-striped tbody tr:not(.is-selected):hover
   background-color: #A50519
 .table.is-hoverable.is-striped tbody tr:not(.is-selected):hover:nth-child(even)
- background-color: #736231
+ background-color: #161a19
+ opacity: .9
 
 .hidden
   display: none

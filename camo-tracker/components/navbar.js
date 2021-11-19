@@ -25,9 +25,8 @@ export default function Navbar() {
                     <ul className="menu-list">
                         <li className="navItemFirst" id="navWeapon">
                             <ActiveLink activeClassName="is-active" href="/">
-                                <span className="level">
+                                <span>
                                     <h3 className="is-size-6">Dashboard</h3>
-                                    <FontAwesomeIcon icon={faHome} className="weaponIcon" />
                                 </span>
                             </ActiveLink>
                         </li>
