@@ -7,16 +7,8 @@ import Image from 'next/image'
 import { useOnClickOutside } from '../components/hooks'
 import { STG, AS44, Automaton, BAR, ITRA, NZ41, Volk } from '../public/guns'
 import { func } from 'prop-types'
-import PackTactics from '../components/camoFunctions/PackTactics'
-import Surgical from '../components/camoFunctions/Surgical'
-import Predatory from '../components/camoFunctions/Predatory'
-import Reptilian from '../components/camoFunctions/Reptilian'
-import Deadeye from '../components/camoFunctions/Deadeye'
-import Berserker from '../components/camoFunctions/Berserker'
-import Wildcat from '../components/camoFunctions/Wildcat'
-import Survivalist from '../components/camoFunctions/Survivalist'
-import Mindgames from '../components/camoFunctions/Mindgames'
-import Death from '../components/camoFunctions/Death'
+
+import { useForm, FormProvider, useFormContext } from "react-hook-form"
 
 import Checkboxes from '../components/Checkboxes'
 
@@ -48,6 +40,68 @@ function WeaponImg({ gun, id }) {
 
 
 export default function Home() {
+
+	/*
+	const [cropName, setCropName] = useState('')
+	const [infestationLevel, setInfestation] = useState(0)
+	const [infestationDate, setInfestationDate] = useState(new Date())
+	const [hydrationLevel, setHydration] = useState(0)
+	const [hydrationDate, setHydrationDate] = useState(new Date())
+	const [error, setError] = useState('')
+	const [message, setMessage] = useState('')
+	const router = useRouter()
+	*/
+
+	const methods = useForm()
+	const { getValues, handleSubmit, watch, formState: { errors } } = methods
+
+	const [goldProgress, setGoldProgress] = useState(0)
+	const values = useState()
+
+
+
+	const onSubmit = data => {
+
+
+		//onsole.log(data['Abstract'])
+
+		values = getValues()
+		console.log('----values----', values)
+
+		GoldProgress(values)
+
+	}
+
+
+	function GoldProgress(values) {
+
+		let goldCount = 0
+
+		for (const name in values) {
+			let nested = values[name]
+			if (values[name] === 'completed') {
+				setGoldProgress(goldProgress + 1)
+				//console.log(values[name])
+				console.log(goldProgress)
+			} else {
+				for (const index in nested) {
+					if (nested[index] === 'completed') {
+						goldCount++
+
+						//console.log(nested[index])
+						//console.log('---gold----', goldProgress)
+					}
+				}
+			}
+		}
+
+		let goldPercentage = Number(goldCount/700).toLocaleString(undefined, {style: 'percent', minimumFractionDigits:2})
+
+		return (
+			setGoldProgress(goldPercentage)
+		)
+
+	}
 
 	const { data: session, status } = useSession()
 	const node = useRef()
@@ -151,89 +205,106 @@ export default function Home() {
 				<section>
 					<div className="b-table has-pagination box" id="boxTable">
 						<div className="table-wrapper has-mobile-cards">
-							<table className="table is-fullwidth is-striped is-hoverable is-fullwidth">
-								<thead>
-									<tr className="has-text-centered">
-										<th>
-											<abbr title="Name">Gun</abbr>
-										</th>
-										<th>
-											<abbr title="Gold">Gold Completion</abbr>
-										</th>
-										<th>
-											<abbr title="Diamond">Diamond Completion</abbr>
-										</th>
-										<th>
-											<abbr title="Atomic">Atomic Completion</abbr>
-										</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr className="has-text-centered" id="gun1" onClick={toggleSubMenu}>
-										<td data-label="Name">STG44</td>
-										<td data-label="Gold"></td>
-										<td data-label="Diamond"></td>
-										<td data-label="Atomic"></td>
-									</tr>
-									<tr className="detail hidden" id="gun1Sub">
-										<Checkboxes></Checkboxes>
-									</tr>
-									<tr className="has-text-centered" id="gun2" onClick={toggleSubMenu}>
-										<td data-label="Name">AS-44</td>
-										<td data-label="Gold"></td>
-										<td data-label="Diamond"></td>
-										<td data-label="Atomic"></td>
-									</tr>
-									<tr className="detail hidden" id="gun2Sub">
-										<Checkboxes></Checkboxes>
-									</tr>
-									<tr className="has-text-centered" id="gun3" onClick={toggleSubMenu}>
-										<td data-label="Name">Automaton</td>
-										<td data-label="Gold"></td>
-										<td data-label="Diamond"></td>
-										<td data-label="Atomic"></td>
-									</tr>
-									<tr className="detail hidden" id="gun3Sub">
-										<Checkboxes></Checkboxes>
-									</tr>
-									<tr className="has-text-centered" id="gun4" onClick={toggleSubMenu}>
-										<td data-label="Name">BAR</td>
-										<td data-label="Gold"></td>
-										<td data-label="Diamond"></td>
-										<td data-label="Atomic"></td>
-									</tr>
-									<tr className="detail hidden" id="gun4Sub">
-										<Checkboxes></Checkboxes>
-									</tr>
-									<tr className="has-text-centered" id="gun5" onClick={toggleSubMenu}>
-										<td data-label="Name">ITRA Burst</td>
-										<td data-label="Gold"></td>
-										<td data-label="Diamond"></td>
-										<td data-label="Atomic"></td>
-									</tr>
-									<tr className="detail hidden" id="gun5Sub">
-										<Checkboxes></Checkboxes>
-									</tr>
-									<tr className="has-text-centered" id="gun6" onClick={toggleSubMenu}>
-										<td data-label="Name">NZ-41</td>
-										<td data-label="Gold"></td>
-										<td data-label="Diamond"></td>
-										<td data-label="Atomic"></td>
-									</tr>
-									<tr className="detail hidden" id="gun6Sub">
-										<Checkboxes></Checkboxes>
-									</tr>
-									<tr className="has-text-centered" id="gun7" onClick={toggleSubMenu}>
-										<td data-label="Name">Volkssturmgewehr</td>
-										<td data-label="Gold"></td>
-										<td data-label="Diamond"></td>
-										<td data-label="Atomic"></td>
-									</tr>
-									<tr className="detail hidden" id="gun7Sub">
-										<Checkboxes></Checkboxes>
-									</tr>
-								</tbody>
-							</table>
+							<FormProvider {...methods}>
+								<form onSubmit={handleSubmit(onSubmit)}>
+									<div className="columns is-vcentered">
+										<div className="column is-half is-flex is-justify-content-center">
+											<p className="title is-size-6">Select any row to input progress</p>
+										</div>
+										<div className="column">
+											<p className="title is-size-6">Sign in to view progress another time.</p>
+										</div>
+										<div className="column is-flex is-justify-content-center">
+											<button className="button is-dark" type="submit">Save Progress</button>
+										</div>
+									</div>
+									<div>
+										<table className="table is-fullwidth is-striped is-hoverable is-fullwidth">
+											<thead>
+												<tr className="has-text-centered">
+													<th>
+														<abbr title="Name">Gun</abbr>
+													</th>
+													<th>
+														<abbr title="Gold">Gold Completion</abbr>
+													</th>
+													<th>
+														<abbr title="Diamond">Diamond Completion</abbr>
+													</th>
+													<th>
+														<abbr title="Atomic">Atomic Completion</abbr>
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr className="has-text-centered" id="gun1" onClick={toggleSubMenu}>
+													<td data-label="Name">STG44</td>
+													<td data-label="Gold">{goldProgress}</td>
+													<td data-label="Diamond"></td>
+													<td data-label="Atomic"></td>
+												</tr>
+												<tr className="detail hidden" id="gun1Sub">
+													<Checkboxes id='gun1'></Checkboxes>
+												</tr>
+												<tr className="has-text-centered" id="gun2" onClick={toggleSubMenu}>
+													<td data-label="Name">AS-44</td>
+													<td data-label="Gold">{goldProgress}</td>
+													<td data-label="Diamond"></td>
+													<td data-label="Atomic"></td>
+												</tr>
+												<tr className="detail hidden" id="gun2Sub">
+													<Checkboxes id='gun2'></Checkboxes>
+												</tr>
+												<tr className="has-text-centered" id="gun3" onClick={toggleSubMenu}>
+													<td data-label="Name">Automaton</td>
+													<td data-label="Gold">{goldProgress}</td>
+													<td data-label="Diamond"></td>
+													<td data-label="Atomic"></td>
+												</tr>
+												<tr className="detail hidden" id="gun3Sub">
+													<Checkboxes id='gun3'></Checkboxes>
+												</tr>
+												<tr className="has-text-centered" id="gun4" onClick={toggleSubMenu}>
+													<td data-label="Name">BAR</td>
+													<td data-label="Gold">{goldProgress}</td>
+													<td data-label="Diamond"></td>
+													<td data-label="Atomic"></td>
+												</tr>
+												<tr className="detail hidden" id="gun4Sub">
+													<Checkboxes id='gun4'></Checkboxes>
+												</tr>
+												<tr className="has-text-centered" id="gun5" onClick={toggleSubMenu}>
+													<td data-label="Name">ITRA Burst</td>
+													<td data-label="Gold">{goldProgress}</td>
+													<td data-label="Diamond"></td>
+													<td data-label="Atomic"></td>
+												</tr>
+												<tr className="detail hidden" id="gun5Sub">
+													<Checkboxes id='gun5'></Checkboxes>
+												</tr>
+												<tr className="has-text-centered" id="gun6" onClick={toggleSubMenu}>
+													<td data-label="Name">NZ-41</td>
+													<td data-label="Gold">{goldProgress}</td>
+													<td data-label="Diamond"></td>
+													<td data-label="Atomic"></td>
+												</tr>
+												<tr className="detail hidden" id="gun6Sub">
+													<Checkboxes id='gun6'></Checkboxes>
+												</tr>
+												<tr className="has-text-centered" id="gun7" onClick={toggleSubMenu}>
+													<td data-label="Name">Volkssturmgewehr</td>
+													<td data-label="Gold">{goldProgress}</td>
+													<td data-label="Diamond"></td>
+													<td data-label="Atomic"></td>
+												</tr>
+												<tr className="detail hidden" id="gun7Sub">
+													<Checkboxes id='gun7'></Checkboxes>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</form>
+							</FormProvider>
 						</div>
 					</div>
 				</section>
@@ -241,3 +312,24 @@ export default function Home() {
 		</LayoutWeaon>
 	)
 }
+
+/*
+export async function getServerSideProps(ctx) {
+
+	// request crop data from api
+	//let cropRes = await fetch(`${server}/api/crops`)
+
+	// extract the data
+	//let cropData = await cropRes.json()
+
+	//console.log(data)
+
+	return {
+		props: {
+			crops: cropData['message'],
+		},
+	}
+}
+
+*/
+
