@@ -1,16 +1,19 @@
 import LayoutWeaon from '../components/layoutWeapons'
 import { server } from '../config'
 import React, { useState, useEffect, useRef } from 'react'
-import { useSession } from 'next-auth/react'
-import vgIcon from '../public/vgIcon.png'
+import { useSession, getSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useOnClickOutside } from '../components/hooks'
 import { STG, AS44, Automaton, BAR, ITRA, NZ41, Volk } from '../public/guns'
-import { func } from 'prop-types'
+import { func, object } from 'prop-types'
+import { useRouter } from 'next/router'
 
 import { useForm, FormProvider, useFormContext } from "react-hook-form"
 
 import Checkboxes from '../components/Checkboxes'
+
+
+
 
 
 function WeaponImg({ gun, id }) {
@@ -41,69 +44,223 @@ function WeaponImg({ gun, id }) {
 
 export default function Home() {
 
-	/*
-	const [cropName, setCropName] = useState('')
-	const [infestationLevel, setInfestation] = useState(0)
-	const [infestationDate, setInfestationDate] = useState(new Date())
-	const [hydrationLevel, setHydration] = useState(0)
-	const [hydrationDate, setHydrationDate] = useState(new Date())
-	const [error, setError] = useState('')
-	const [message, setMessage] = useState('')
-	const router = useRouter()
-	*/
-
 	const methods = useForm()
 	const { getValues, handleSubmit, watch, formState: { errors } } = methods
 
-	const [goldProgress, setGoldProgress] = useState(0)
+	const router = useRouter()
+	const [error, setError] = useState('')
+	const [message, setMessage] = useState('')
+	const [totalGoldProgress, setTotalGoldProgress] = useState(Number(0).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 }))
+	const [gun1GoldProgress, setGun1GoldProgress] = useState(Number(0).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 }))
+	const [gun2GoldProgress, setGun2GoldProgress] = useState(Number(0).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 }))
+	const [gun3GoldProgress, setGun3GoldProgress] = useState(Number(0).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 }))
+	const [gun4GoldProgress, setGun4GoldProgress] = useState(Number(0).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 }))
+	const [gun5GoldProgress, setGun5GoldProgress] = useState(Number(0).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 }))
+	const [gun6GoldProgress, setGun6GoldProgress] = useState(Number(0).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 }))
+	const [gun7GoldProgress, setGun7GoldProgress] = useState(Number(0).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 }))
+
 	const values = useState()
+	const gunValuesObject = useState(new Object())
 
 
 
 	const onSubmit = data => {
 
 
-		//onsole.log(data['Abstract'])
+		//console.log(data['Abstract'])
 
 		values = getValues()
-		console.log('----values----', values)
+		let gun1Values = values.gun1
+		let gun2Values = values.gun2
+		let gun3Values = values.gun3
+		let gun4Values = values.gun4
+		let gun5Values = values.gun5
+		let gun6Values = values.gun6
+		let gun7Values = values.gun7
 
-		GoldProgress(values)
+		gunValuesObject = {
+			gun1: gun1Values,
+			gun2: gun2Values,
+			gun3: gun3Values,
+			gun4: gun4Values,
+			gun5: gun5Values,
+			gun6: gun6Values,
+			gun7: gun7Values
+		}
+
+		//console.log('--------values------', values)
+		/*
+		console.log('----gun1---', values.gun1)
+		console.log('----gun2---', values.gun2)
+		console.log('----gun3---', values.gun3)
+		console.log('----gun4---', values.gun4)
+		console.log('----gun5---', values.gun5)
+		console.log('----gun6---', values.gun6)
+		console.log('----gun7---', values.gun7)
+		*/
+
+		TotalGoldProgress(gunValuesObject)
+
+		if(session){
+			saveToDatabase(gunValuesObject)
+		}else {
+			console.log('---notSignedIn----')
+		}
 
 	}
 
 
-	function GoldProgress(values) {
+	const saveToDatabase = async (gunValuesObject) => {
 
-		let goldCount = 0
+		setError('')
+		setMessage('')
 
-		for (const name in values) {
-			let nested = values[name]
-			if (values[name] === 'completed') {
-				setGoldProgress(goldProgress + 1)
-				//console.log(values[name])
-				console.log(goldProgress)
-			} else {
-				for (const index in nested) {
-					if (nested[index] === 'completed') {
-						goldCount++
+		let camoProgress = gunValuesObject
+		console.log(`----api post method----`, camoProgress)
 
-						//console.log(nested[index])
-						//console.log('---gold----', goldProgress)
-					}
+		let res = await fetch('/api/camoProgressAR', {
+			method: 'POST',
+			body: JSON.stringify(camoProgress),
+		})
+
+		let data = await res.json()
+
+		console.log(`-----error and message----`, error, message)
+
+		if(data.success) {
+			return setMessage(data.message)
+		} else {
+			return setError(data.message)
+		}
+	}
+
+	function TotalGoldProgress(gunValuesObject) {
+
+		let totalGoldCount = 0
+		let gun1GoldCount = 0
+		let gun2GoldCount = 0
+		let gun3GoldCount = 0
+		let gun4GoldCount = 0
+		let gun5GoldCount = 0
+		let gun6GoldCount = 0
+		let gun7GoldCount = 0
+
+
+		for (const x in gunValuesObject) {
+			let nested = gunValuesObject[x]
+			//console.log(`----${x}----`, nested)
+			//console.log(`----gunValuesObject[${x}]`, gunValuesObject[x])
+			for (const index in nested) {
+				if (nested[index] === 'completed') {
+					totalGoldCount++
+
+					//console.log('---whats in here----', nested[index])
+					//console.log('---gold----', goldCount)
 				}
+			}
+
+			switch (x) {
+				case 'gun1':
+					//console.log(`---Should be gun1 ---`, x)
+					for (const i in nested) {
+						if (nested[i] === 'completed') {
+							gun1GoldCount++
+						}
+					}
+					break
+
+				case 'gun2':
+					//console.log(`---Should be gun2 ---`, x)
+					for (const i in nested) {
+						if (nested[i] === 'completed') {
+							gun2GoldCount++
+						}
+					}
+					break
+
+				case 'gun3':
+					//console.log(`---Should be gun3 ---`, x)
+					for (const i in nested) {
+						if (nested[i] === 'completed') {
+							gun3GoldCount++
+						}
+					}
+					break
+
+				case 'gun4':
+					//console.log(`---Should be gun4 ---`, x)
+					for (const i in nested) {
+						if (nested[i] === 'completed') {
+							gun4GoldCount++
+						}
+					}
+					break
+
+				case 'gun5':
+					//console.log(`---Should be gun5 ---`, x)
+					for (const i in nested) {
+						if (nested[i] === 'completed') {
+							gun5GoldCount++
+						}
+					}
+					break
+
+				case 'gun6':
+					//console.log(`---Should be gun6 ---`, x)
+					for (const i in nested) {
+						if (nested[i] === 'completed') {
+							gun6GoldCount++
+						}
+					}
+					break
+
+				case 'gun7':
+					//console.log(`---Should be gun7 ---`, x)
+					for (const i in nested) {
+						if (nested[i] === 'completed') {
+							gun7GoldCount++
+						}
+					}
+					break
 			}
 		}
 
-		let goldPercentage = Number(goldCount/700).toLocaleString(undefined, {style: 'percent', minimumFractionDigits:2})
+
+		//Dont need nested conditional
+		/*
+			if (gunValuesObject[x] === 'completed') {
+				setGoldProgress(goldProgress + 1)
+				//console.log(values[name])
+				console.log('----Is this executing????---', goldProgress)
+			} else { }
+		*/
+
+		let totalGoldPercentage = Number(totalGoldCount / 700).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 })
+		let gun1GoldPercentage = Number(gun1GoldCount / 100).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 })
+		let gun2GoldPercentage = Number(gun2GoldCount / 100).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 })
+		let gun3GoldPercentage = Number(gun3GoldCount / 100).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 })
+		let gun4GoldPercentage = Number(gun4GoldCount / 100).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 })
+		let gun5GoldPercentage = Number(gun5GoldCount / 100).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 })
+		let gun6GoldPercentage = Number(gun6GoldCount / 100).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 })
+		let gun7GoldPercentage = Number(gun7GoldCount / 100).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 2 })
 
 		return (
-			setGoldProgress(goldPercentage)
+			//console.log(`$$$$$$ gold counts $$$$$$`, gun1GoldCount, gun2GoldCount, gun3GoldCount, gun4GoldCount, gun5GoldCount, gun6GoldCount, gun7GoldCount)
+			setTotalGoldProgress(totalGoldPercentage),
+			setGun1GoldProgress(gun1GoldPercentage),
+			setGun2GoldProgress(gun2GoldPercentage),
+			setGun3GoldProgress(gun3GoldPercentage),
+			setGun4GoldProgress(gun4GoldPercentage),
+			setGun5GoldProgress(gun5GoldPercentage),
+			setGun6GoldProgress(gun6GoldPercentage),
+			setGun7GoldProgress(gun7GoldPercentage)
+
 		)
 
 	}
 
 	const { data: session, status } = useSession()
+
 	const node = useRef()
 
 	const [noImage, setNoImage] = useState(true)
@@ -128,7 +285,7 @@ export default function Home() {
 			gunImage.classList.toggle('hidden')
 			gunTitle.classList.toggle('hidden')
 
-			console.log('-----First click?----', noImage)
+			//console.log('-----First click?----', noImage)
 
 			setNoImage(false)
 			setRowOpen(subRowId)
@@ -148,8 +305,8 @@ export default function Home() {
 
 		}
 		else {
-			console.log('----noImage-----', noImage)
-			console.log('----idk------', result)
+			//console.log('----noImage-----', noImage)
+			//console.log('----idk------', result)
 
 			gunImage.classList.toggle('hidden')
 			gunTitle.classList.toggle('hidden')
@@ -239,7 +396,7 @@ export default function Home() {
 											<tbody>
 												<tr className="has-text-centered" id="gun1" onClick={toggleSubMenu}>
 													<td data-label="Name">STG44</td>
-													<td data-label="Gold">{goldProgress}</td>
+													<td data-label="Gold">{gun1GoldProgress}</td>
 													<td data-label="Diamond"></td>
 													<td data-label="Atomic"></td>
 												</tr>
@@ -248,7 +405,7 @@ export default function Home() {
 												</tr>
 												<tr className="has-text-centered" id="gun2" onClick={toggleSubMenu}>
 													<td data-label="Name">AS-44</td>
-													<td data-label="Gold">{goldProgress}</td>
+													<td data-label="Gold">{gun2GoldProgress}</td>
 													<td data-label="Diamond"></td>
 													<td data-label="Atomic"></td>
 												</tr>
@@ -257,7 +414,7 @@ export default function Home() {
 												</tr>
 												<tr className="has-text-centered" id="gun3" onClick={toggleSubMenu}>
 													<td data-label="Name">Automaton</td>
-													<td data-label="Gold">{goldProgress}</td>
+													<td data-label="Gold">{gun3GoldProgress}</td>
 													<td data-label="Diamond"></td>
 													<td data-label="Atomic"></td>
 												</tr>
@@ -266,7 +423,7 @@ export default function Home() {
 												</tr>
 												<tr className="has-text-centered" id="gun4" onClick={toggleSubMenu}>
 													<td data-label="Name">BAR</td>
-													<td data-label="Gold">{goldProgress}</td>
+													<td data-label="Gold">{gun4GoldProgress}</td>
 													<td data-label="Diamond"></td>
 													<td data-label="Atomic"></td>
 												</tr>
@@ -275,7 +432,7 @@ export default function Home() {
 												</tr>
 												<tr className="has-text-centered" id="gun5" onClick={toggleSubMenu}>
 													<td data-label="Name">ITRA Burst</td>
-													<td data-label="Gold">{goldProgress}</td>
+													<td data-label="Gold">{gun5GoldProgress}</td>
 													<td data-label="Diamond"></td>
 													<td data-label="Atomic"></td>
 												</tr>
@@ -284,7 +441,7 @@ export default function Home() {
 												</tr>
 												<tr className="has-text-centered" id="gun6" onClick={toggleSubMenu}>
 													<td data-label="Name">NZ-41</td>
-													<td data-label="Gold">{goldProgress}</td>
+													<td data-label="Gold">{gun6GoldProgress}</td>
 													<td data-label="Diamond"></td>
 													<td data-label="Atomic"></td>
 												</tr>
@@ -293,7 +450,7 @@ export default function Home() {
 												</tr>
 												<tr className="has-text-centered" id="gun7" onClick={toggleSubMenu}>
 													<td data-label="Name">Volkssturmgewehr</td>
-													<td data-label="Gold">{goldProgress}</td>
+													<td data-label="Gold">{gun7GoldProgress}</td>
 													<td data-label="Diamond"></td>
 													<td data-label="Atomic"></td>
 												</tr>
@@ -316,20 +473,19 @@ export default function Home() {
 /*
 export async function getServerSideProps(ctx) {
 
-	// request crop data from api
-	//let cropRes = await fetch(`${server}/api/crops`)
+	// request camoProgress data from api
+	let camoProgressRes = await fetch(`${server}/api/camoProgress`)
 
 	// extract the data
-	//let cropData = await cropRes.json()
+	let camoProgressData = await camoProgressRes.json()
 
 	//console.log(data)
 
 	return {
 		props: {
-			crops: cropData['message'],
+			progress: camoProgressData['message'],
 		},
 	}
 }
 
 */
-

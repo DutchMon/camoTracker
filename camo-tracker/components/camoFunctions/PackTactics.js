@@ -30,7 +30,7 @@ import { useFormContext } from 'react-hook-form'
 							</div>
 							<div className="level-right">
 								<label className="checkbox">
-									<input {...register(`${name}.${id}`)} type="checkbox" name={name} value='completed'></input>
+									<input defaultValue={'completed'} {...register(`${id}.${name}`)} type="checkbox"></input>
 								</label>
 							</div>
 						</div>

@@ -35,7 +35,7 @@ export default function Predatory({id}) {
 							</div>
 							<div className="level-right">
 								<label className="checkbox">
-									<input key={name} {...register(`${name}.${id}`)} type="checkbox" name={name} value='completed'></input>
+									<input defaultValue={'completed'} {...register(`${id}.${name}`)} type="checkbox" ></input>
 								</label>
 							</div>
 						</div>
