@@ -42,7 +42,9 @@ function WeaponImg({ gun, id }) {
 }
 
 
-export default function Home() {
+export default function Home({progress}) {
+
+	console.log(`---Progress---`, progress)
 
 	const methods = useForm()
 	const { getValues, handleSubmit, watch, formState: { errors } } = methods
@@ -112,11 +114,15 @@ export default function Home() {
 
 	const saveToDatabase = async (gunValuesObject) => {
 
+		const testSession = await getSession()
+
 		setError('')
 		setMessage('')
 
 		let camoProgress = gunValuesObject
-		console.log(`----api post method----`, camoProgress)
+		camoProgress.userId = testSession.userId
+		//console.log(`----get Session----`, testSession)
+		//console.log(`----api post method----`, camoProgress)
 
 		let res = await fetch('/api/camoProgressAR', {
 			method: 'POST',
@@ -125,7 +131,7 @@ export default function Home() {
 
 		let data = await res.json()
 
-		console.log(`-----error and message----`, error, message)
+		//console.log(`-----error and message----`, error, message)
 
 		if(data.success) {
 			return setMessage(data.message)
@@ -470,11 +476,11 @@ export default function Home() {
 	)
 }
 
-/*
+
 export async function getServerSideProps(ctx) {
 
 	// request camoProgress data from api
-	let camoProgressRes = await fetch(`${server}/api/camoProgress`)
+	let camoProgressRes = await fetch(`${server}/api/camoProgressAR`)
 
 	// extract the data
 	let camoProgressData = await camoProgressRes.json()
@@ -488,4 +494,3 @@ export async function getServerSideProps(ctx) {
 	}
 }
 
-*/

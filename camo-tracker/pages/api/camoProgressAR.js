@@ -31,12 +31,21 @@ async function getCamoProgress(req, res) {
         // connect to the database
         let { db } = await connectToDatabase()
 
+        const session = await getSession({req})
 
-        // fetch the posts
+        console.log(`---getSession---`, session)
+
+        let object = JSON.parse(req.body)
+        let userId = object.userId
+
+
+
+        // fetch progress
         let camoProgress = await db
-            .collection('camoProgress')
-            .toArray()
-        // return the crops
+            .collection('camoProgressAR')
+            .findOne({
+                "userId": userId
+            })
 
         return res.json({
             message: JSON.parse(JSON.stringify(camoProgress)),
@@ -53,28 +62,24 @@ async function getCamoProgress(req, res) {
 
 async function addCamoProgress(req, res) {
     try {
-        const session = await getSession({req})
+        //const session = await getSession({req})
 
-        const { userId } = session
+        //console.log('------TESTING------', session.userId)
+        //const userId = JSON.parse(session.userId)
         // connect to the database
         let { db } = await connectToDatabase()
 
+        let object = JSON.parse(req.body)
+        let userId = object.userId
+        //let attachedUser = object.id = userId
+        //console.log('---attached----', object)
 
-        let camoProgress = JSON.parse(req.body)
-        camoProgress.userId = userId
-
-        // add the crop
         await db.collection('camoProgressAR').findOneAndReplace(
-            {
-                "userId": userId
-            },
-            {
-                camoProgress
-            },
-            {
-                "returnNewDocument": true
-            }
+            {"userId": userId },
+            (object),
+            {upsert: true}
         )
+
         // return a message
         return res.json({
             message: 'Progress Saved',
@@ -84,7 +89,7 @@ async function addCamoProgress(req, res) {
         // return an error
         return res.json({
             message: new Error(error).message,
-            success: false,
+            success: false
         })
     }
 }

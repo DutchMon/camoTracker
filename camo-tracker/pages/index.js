@@ -39,7 +39,7 @@ export default function Home({props}) {
 
 	const { data: session, status } = useSession()
 
-	//console.log("------------Status-------", status)
+	//console.log("------------Status-------", session)
 
 
 	return (

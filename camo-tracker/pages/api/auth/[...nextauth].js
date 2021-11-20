@@ -17,13 +17,20 @@ export default async function auth(req, res) {
       // OAuth authentication providers
       GoogleProvider({
         clientId: process.env.GOOGLE_ID,
-        clientSecret: process.env.GOOGLE_SECRET,
+        clientSecret: process.env.GOOGLE_SECRET
       })
     ],
     pages: {
       signIn: '/login'
     },
-    secret: process.env.SECRET
+    secret: process.env.SECRET,
+    callbacks: {
+      session: async (token) =>{
+        let session = token.session
+        session.userId = token.user.id
+        return session
+      }
+    }
     //debug: true,
     //...
   })
