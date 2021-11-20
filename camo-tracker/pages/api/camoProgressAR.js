@@ -34,7 +34,7 @@ async function getCamoProgress(req, res) {
         const session = await getSession({req})
 
         console.log(`---getSession---`, session)
-        let userId = session.userId
+        let userId = session.user.id
 
 
         // fetch progress
