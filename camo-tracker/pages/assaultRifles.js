@@ -479,31 +479,3 @@ export default function Home({ progress }) {
 }
 
 
-export async function getServerSideProps(ctx) {
-
-
-	const session = await getSession(ctx)
-	console.log(`--GetServerSide--`, session)
-	let userId = session.userId
-	let [loggedIn, setLoggedIn] = useState(false)
-	let data = {}
-
-	if (!session) {
-		return {
-			props: {
-				loggedIn,
-			},
-		}
-	} else {
-		let res = await fetch(`${server}/api/camoProgressAR`)
-		data = await res.json()
-		setLoggedIn(true)
-
-		return {
-			props: {
-				loggedIn,
-				progress: camoProgressData['message'],
-			},
-		}
-	}
-}
