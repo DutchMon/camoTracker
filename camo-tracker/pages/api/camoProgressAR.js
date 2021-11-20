@@ -34,21 +34,17 @@ async function getCamoProgress(req, res) {
         const session = await getSession({req})
 
         console.log(`---getSession---`, session)
-
-        let object = JSON.parse(req.body)
-        let userId = object.userId
-
+        let userId = session.userId
 
 
         // fetch progress
-        let camoProgress = await db
-            .collection('camoProgressAR')
+        await db.collection('camoProgressAR')
             .findOne({
                 "userId": userId
             })
 
         return res.json({
-            message: JSON.parse(JSON.stringify(camoProgress)),
+            message: 'Retrieved Progress',
             success: true,
         })
     } catch (error) {
