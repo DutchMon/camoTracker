@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import { useForm, FormProvider, useFormContext } from "react-hook-form"
 
 import Checkboxes from '../components/Checkboxes'
+import { apiBaseUrl } from 'next-auth/client/_utils'
 
 
 
@@ -42,7 +43,7 @@ function WeaponImg({ gun, id }) {
 }
 
 
-export default function Home({progress}) {
+export default function Home({ progress }) {
 
 	console.log(`---Progress---`, progress)
 
@@ -103,9 +104,9 @@ export default function Home({progress}) {
 
 		TotalGoldProgress(gunValuesObject)
 
-		if(session){
+		if (session) {
 			saveToDatabase(gunValuesObject)
-		}else {
+		} else {
 			console.log('---notSignedIn----')
 		}
 
@@ -133,7 +134,7 @@ export default function Home({progress}) {
 
 		//console.log(`-----error and message----`, error, message)
 
-		if(data.success) {
+		if (data.success) {
 			return setMessage(data.message)
 		} else {
 			return setError(data.message)
@@ -480,18 +481,29 @@ export default function Home({progress}) {
 
 export async function getServerSideProps(ctx) {
 
-	// request camoProgress data from api
-	let camoProgressRes = await fetch(`${server}/api/camoProgressAR`)
 
-	// extract the data
-	let camoProgressData = await camoProgressRes.json()
+	const session = await getSession(ctx)
+	console.log(`--GetServerSide--`, session)
+	let userId = session.userId
+	let [loggedIn, setLoggedIn] = useState(false)
+	let data = {}
 
-	//console.log(data)
+	if (!session) {
+		return {
+			props: {
+				loggedIn,
+			},
+		}
+	} else {
+		let res = await fetch(`${server}/api/camoProgressAR`)
+		data = await res.json()
+		setLoggedIn(true)
 
-	return {
-		props: {
-			progress: camoProgressData['message'],
-		},
+		return {
+			props: {
+				loggedIn,
+				progress: camoProgressData['message'],
+			},
+		}
 	}
 }
-

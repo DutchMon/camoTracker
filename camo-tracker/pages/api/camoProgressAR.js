@@ -1,6 +1,6 @@
 
-import { getSession } from "next-auth/react";
-import clientPromise, { connectToDatabase } from "../../lib/mongodb";
+import { getSession } from "next-auth/react"
+import clientPromise, { connectToDatabase } from "../../lib/mongodb"
 
 const ObjectId = require('mongodb').ObjectId;
 
@@ -29,12 +29,6 @@ async function getCamoProgress(req, res) {
     try {
         // connect to the database
         let { db } = await connectToDatabase()
-
-        const session = await getServerSession({req})
-
-        console.log(`---getSession---`, session)
-        let userId = session.userId
-
 
         // fetch progress
         await db.collection('camoProgressAR')
