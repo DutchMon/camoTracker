@@ -26,6 +26,7 @@ export default async function auth(req, res) {
     secret: process.env.SECRET,
     callbacks: {
       session: async (token) =>{
+        console.log(`---token---`, token)
         let session = token.session
         session.userId = token.user.id
         return session
