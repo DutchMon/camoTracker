@@ -26,15 +26,14 @@ export default async function handler(req, res) {
 }
 
 async function getCamoProgress(req, res) {
-    const MONGODB_DB = process.env.DB_NAME
     try {
         // connect to the database
         let { db } = await connectToDatabase()
 
-        const session = await getSession({req})
+        const session = await getServerSession({req})
 
         console.log(`---getSession---`, session)
-        let userId = session.user.id
+        let userId = session.userId
 
 
         // fetch progress

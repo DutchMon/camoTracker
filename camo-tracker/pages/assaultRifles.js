@@ -266,6 +266,7 @@ export default function Home({progress}) {
 	}
 
 	const { data: session, status } = useSession()
+	console.log(`---Assault Rifles---`, session)
 
 	const node = useRef()
 

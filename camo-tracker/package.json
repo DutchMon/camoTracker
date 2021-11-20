@@ -18,7 +18,7 @@
     "fontawesome.macro": "^1.1.0",
     "mongodb": "^4.2.0",
     "next": "12.0.4",
-    "next-auth": "^4.0.0-beta.7",
+    "next-auth": "0.0.0-pr.2857.5130374a",
     "prop-types": "^15.7.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
